@@ -1,1 +1,7 @@
-/*.log
+*.log
+*~
+~*.*
+*.sqlite
+/.vs/slnx.sqlite-journal
+/.vs
+*.patch
