@@ -41,13 +41,13 @@ Content-Length: [len]
 From: sipp <sip:sipp@[local_ip]:[local_port]>;tag=[pid]SIPpTag-[pid]-[call_number]
 
 v=0
-o=CiscoSystemsCCM-SIP 56608499 1 IN IP4 10.50.153.202
+o=CiscoSystemsCCM-SIP 56608499 1 IN IP4 [local_ip]
 s=SIP Call
-c=IN IP4 10.50.153.209
+c=IN IP4 [local_ip]
 b=TIAS:64000
 b=AS:64
 t=0 0
-m=audio 17548 RTP/AVP 8 101
+m=audio [media_port] RTP/AVP 8 101
 a=ptime:20
 a=rtpmap:8 PCMA/8000
 a=rtpmap:101 telephone-event/8000
