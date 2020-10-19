@@ -52,7 +52,12 @@
     ]]>
   </send>
 
-  <send retrans="500">
+  <!-- By adding rrs="true" (Record Route Sets), the route sets         -->
+  <!-- are saved and used for following messages sent. Useful to test   -->
+  <!-- against stateful SIP proxies/B2BUAs.                             -->
+
+
+  <send retrans="500" rrs="true">
     <![CDATA[
 
       SIP/2.0 200 OK
@@ -61,7 +66,6 @@
       [last_To:];tag=[pid]SIPpTag01[call_number]
       [last_Call-ID:]
       [last_CSeq:]
-      Record-Route: <sip:r1@[local_ip]:[local_port];transport=[transport];lr>,<sip:r2@[local_ip]:[local_port];transport=[transport];lr>,<sip:r3@[local_ip]:[local_port];transport=[transport];lr>
       Contact: <sip:[local_ip]:[local_port];transport=[transport]>
       Content-Type: application/sdp
       Content-Length: [len]
@@ -76,6 +80,7 @@
 
     ]]>
   </send>
+
 
   <recv request="ACK"
         optional="true"

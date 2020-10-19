@@ -72,6 +72,7 @@
       From: sipp <sip:sipp@[local_ip]:[local_port]>;tag=[pid]SIPpTag09[call_number]
       To: sut <sip:[service]@[remote_ip]:[remote_port]>[peer_tag_param]
       Call-ID: [call_id]
+	  Route: [routes]
       CSeq: 1 ACK
       Contact: sip:sipp@[local_ip]:[local_port]
       Max-Forwards: 70
