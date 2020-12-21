@@ -17,16 +17,17 @@
 <!-- 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA             -->
 <!--                                                                    -->
 <!--                 Sipp default 'uac' scenario.                       -->
-<!--                                                                    -->
+<!--                                                               [pid]SIPpTag00[call_number]     -->
 
 <scenario name="Basic Sipstone UAC">
   <send retrans="3">
     <![CDATA[
       OPTIONS sip:[remote_ip]:[remote_port] SIP/2.0
       Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
-      From: "Anonymous" <sip:Anonymous@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
+      From: sip:[local_ip]:[local_port];tag=0izeop
       To: sip:[remote_ip]:[remote_port]
       Call-ID: [call_id]
+      Max-Forwards: 3
       CSeq: 1 OPTIONS
       Content-Length: 0
     ]]>
