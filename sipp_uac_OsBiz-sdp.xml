@@ -80,7 +80,18 @@ a=sendonly
     ]]>
   </send>
 
-  <pause milliseconds="2000"/>
+
+  <pause milliseconds="1000"/>
+
+  <!-- Play a pre-recorded PCAP file (RTP stream)                       -->
+  <nop>
+    <action>
+      <exec play_pcap_audio="rtp-g729a.pcap"/>
+    </action>
+  </nop>
+
+  <pause milliseconds="1000"/>
+
 
   <!-- The 'crlf' option inserts a blank line in the statistics report. -->
   <send retrans="500">
@@ -98,11 +109,11 @@ a=sendonly
       Content-Length: [len]
 
 v=0
-o=OsBiz 6957012245381670838 1 IN IP4 172.26.119.41
+o=OsBiz 6957012245381670838 1 IN IP4 [local_ip]
 s=OsBiz
-c=IN IP4 172.26.119.41
+c=IN IP4 [local_ip]
 t=0 0
-m=audio 25134 RTP/AVP 18 101
+m=audio [auto_media_port] RTP/AVP 18 101
 a=rtpmap:18 G729/8000
 a=fmtp:18 annexb=yes
 a=rtpmap:101 telephone-event/8000
