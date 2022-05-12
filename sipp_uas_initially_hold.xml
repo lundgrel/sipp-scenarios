@@ -102,8 +102,8 @@
       INVITE [next_url] SIP/2.0
       Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
       From: [$us]
-      To: [$them]	  
- 	  [routes]
+      To: [$them]
+      [routes]
       Call-ID: [call_id]
       CSeq: [cseq] INVITE
       Contact: sip:sipp@[local_ip]:[local_port]
@@ -113,7 +113,7 @@
       Content-Type: application/sdp
 
       v=0
-      o=DEMUCUCCC01 1128399481 1 IN IP4 IP[local_ip_type] [local_ip]
+      o=DEMUCUCCC01 1128399481 1 IN IP[local_ip_type] [local_ip]
       s=fake_cisco_f99b3-613c-4a53-a0ff-8aad07810523
       c=IN IP[media_ip_type] [media_ip]
       t=0 0
