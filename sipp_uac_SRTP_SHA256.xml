@@ -33,7 +33,6 @@
       CSeq: 1 INVITE
       Contact: sip:sipp@[local_ip]:[local_port]
       Max-Forwards: 70
-
 Allow: INVITE, OPTIONS, INFO, BYE, CANCEL, ACK, UPDATE, NOTIFY
 User-Agent: Mitel NeTS 5.12.5009.0/5.12.5009.0
 X-NeTS-actorid: {6C0BD1A1-1100-4331-BABC-9A70AD415424}
@@ -42,7 +41,7 @@ Expires: 1
 Contact: "NeTS mctx_aux_6C0BD1A1" <sip:[local_ip]:[local_port];transport=udp>
 Route: <sip:[remote_ip]:[remote_port];transport=udp;lr>
 Content-Type: application/sdp
-Content-Length: 860
+Content-Length: [len]
 From: "NeTS mctx_aux_6C0BD1A1" <sip:mctx_aux_6C0BD1A1@[local_ip]:[local_port];transport=udp>;tag=2514377068
 
 v=0
@@ -64,11 +63,6 @@ a=rtpmap:18 G729/8000
 a=fmtp:18 annexb=yes
 a=sendrecv
 a=ptime:20
-|SipProvider2.cpp,986
-07:52:31.348 {05240} [3] |;media_1013;MediaCtrlSession::ctor|New MediaCtrlSession created with cookie media_1013 (Total instance count 2)|MediaCtrlSession.cpp,71
-
-
-
 
     ]]>
   </send>
