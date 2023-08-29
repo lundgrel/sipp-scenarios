@@ -1,10 +1,15 @@
 #!/bin/bash
 
+set -x
+
 echo I am running as `id`
 basename=${1%.*}
-rm -v ${basename}_[0-9]*_messages.log ${basename}_[0-9]*_errors.log 2> /dev/null && true
+# rm -vf ${basename}_[0-9]*_messages.log ${basename}_[0-9]*_errors.log 2> /dev/null && true
+logfile=${basename}-log.txt
+errfile=${basename}-err.txt
+DN="${2:-2012}"
 
-../sipp.git/sipp 10.105.79.12:5065 -sf "$1" -s "$DN" -l 1 -m 1 -aa -trace_msg -trace_err -p 5060 -t t1
+../sipp.git/sipp.root 10.105.79.12:5065 -sf "$1" -s "$DN" -l 1 -m 1 -aa -trace_msg -message_file $logfile -trace_err -error_file $errfile  -t u1
 echo completed
-cat ${basename}_errors.log
+cat $errfile
 echo .
