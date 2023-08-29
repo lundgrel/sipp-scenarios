@@ -70,6 +70,7 @@
 
   <!-- pause, time can be controlled from the cli -->
   <pause/>
+  <!-- <pause milliseconds="3000"/> pause
 
   <send retrans="500">
     <![CDATA[

@@ -5,3 +5,5 @@
 /.vs/slnx.sqlite-journal
 /.vs
 *.patch
+*-err.txt
+*-log.txt
