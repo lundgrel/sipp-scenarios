@@ -54,7 +54,7 @@
       [last_Call-ID:]
       [last_CSeq:]
       Contact: [$full_remote_contact]
-      Proxy-Authenticate: Digest nonce="1690995390:410b85e442286a694b06a91184bc1e9e",algorithm=MD5,realm="mxone.seclab.com",opaque="ed383ec94720d62a939bfb6bdd98f50c"      Content-Length: 0
+      Proxy-Authenticate: Digest nonce="1111111111:410b85e442286a694b06a91184bc1e9e",algorithm=MD5,realm="mxone.seclab.com",opaque="ed383ec94720d62a939bfb6bdd98f50c"      Content-Length: 0
       Content-Length: 0
 
     ]]>
@@ -133,7 +133,7 @@
       [last_Call-ID:]
       [last_CSeq:]
       Contact: [$full_remote_contact]
-      Proxy-Authenticate: Digest nonce="1690995390:410b85e442286a694b06a91184bc1e9e",algorithm=MD5,realm="mxone.seclab.com",opaque="ed383ec94720d62a939bfb6bdd98f50c"      Content-Length: 0
+      Proxy-Authenticate: Digest nonce="2222222222:410b85e442286a694b06a91184bc1e9e",algorithm=MD5,realm="mxone.seclab.com",opaque="ed383ec94720d62a939bfb6bdd98f50c"      Content-Length: 0
       Content-Length: 0
 
     ]]>
@@ -166,7 +166,7 @@
   <send>
     <![CDATA[
 
-      SIP/2.0 200 Ok now I let you in
+      SIP/2.0 200 Ok you can still be here
       [last_Via:]
       [last_From:]
       [last_To:];tag=[pid]SIPpTag01[call_number]
