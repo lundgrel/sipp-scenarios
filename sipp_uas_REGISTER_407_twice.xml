@@ -24,9 +24,9 @@
 
   <recv request="REGISTER" crlf="true">
     <action>
-     <!-- since we need to send a request to the remote part -->
+     <!-- since we need to send a request to the remote part  -->
      <!-- we need to extract the Contact and the From header content -->
-     <ereg regexp=".*" search_in="hdr" header="Contact" assign_to="full_remote_contact"/>
+     <ereg regexp="(sip:[^>]+)" search_in="hdr" header="Contact" assign_to="full_remote_contact"/>
      <!-- assign the content of the Contaact SIP URI to the remote_contact var -->
      <!-- first var of assign_to contains the whole match -->
      <!-- <ereg regexp="sip:(.*)>.*" search_in="hdr" header="Contact" assign_to="trash,remote_contact"/>  -->
@@ -54,7 +54,7 @@
       [last_Call-ID:]
       [last_CSeq:]
       Contact: [$full_remote_contact]
-      Proxy-Authenticate: Digest nonce="1111111111:410b85e442286a694b06a91184bc1e9e",algorithm=MD5,realm="mxone.seclab.com",opaque="ed383ec94720d62a939bfb6bdd98f50c"      Content-Length: 0
+      Proxy-Authenticate: Digest nonce="1111111111:410b85e442286a694b06a91184bc1e9e",algorithm=MD5,realm="mxone.seclab.com",opaque="ed383ec94720d62a939bfb6bdd98f50c"
       Content-Length: 0
 
     ]]>
@@ -133,7 +133,7 @@
       [last_Call-ID:]
       [last_CSeq:]
       Contact: [$full_remote_contact]
-      Proxy-Authenticate: Digest nonce="2222222222:410b85e442286a694b06a91184bc1e9e",algorithm=MD5,realm="mxone.seclab.com",opaque="ed383ec94720d62a939bfb6bdd98f50c"      Content-Length: 0
+      Proxy-Authenticate: Digest nonce="2222222222:410b85e442286a694b06a91184bc1e9e",algorithm=MD5,realm="mxone.seclab.com",opaque="ed383ec94720d62a939bfb6bdd98f50c"
       Content-Length: 0
 
     ]]>
@@ -185,11 +185,6 @@
   <timewait milliseconds="4000"/>
 
 
-  <!-- definition of the response time repartition table (unit is ms)   -->
-  <ResponseTimeRepartition value="10, 20, 30, 40, 50, 100, 150, 200"/>
-
-  <!-- definition of the call length repartition table (unit is ms)     -->
-  <CallLengthRepartition value="10, 50, 100, 500, 1000, 5000, 10000"/>
-
+  
 </scenario>
 
