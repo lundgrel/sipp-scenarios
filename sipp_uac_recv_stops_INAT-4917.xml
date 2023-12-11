@@ -25,29 +25,23 @@
   <send>
     <![CDATA[
 
-INVITE sip:conf-[call_id]@[remote_ip]:[remote_port];transport=[transport] SIP/2.0
+INVITE sip:conf-[call_number]@[remote_ip]:[remote_port];transport=[transport] SIP/2.0
 Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=z9hG4bK5C4F5FE19A8F4D2986AA9A54B8FA6CB6
-Call-ID: [call_id]
+Call-ID: call-x-[call_number]@[local_ip]
 CSeq: 101 INVITE
-To: <sip:conf-[call_id]@[remote_ip]:[remote_port];transport=[transport]>
+To: <sip:conf-[call_number]@[remote_ip]:[remote_port];transport=[transport]>
 Max-Forwards: 70
 Allow: INVITE, OPTIONS, INFO, BYE, CANCEL, ACK, UPDATE, NOTIFY
-User-Agent: Mitel NeTS 5.12.4034.0/5.12.4035.0
-X-NeTS-actorid: {A6C9613A-E34C-4699-8A09-DE075EB8F730}
-X-NeTS-callcontext: mctx1_A6C9613A
-Expires: 1
+User-Agent: Mitel NeTS 5.12.4034.0/5.12.4035.0 
 Contact: sip:sipp@[local_ip]:[local_port]
-Content-Type: multipart/mixed;boundary=unique-boundary-1
-Content-Length: [len]
-From: "NeTS mctx1_A6C9613A" <sip:mctx1_A6C9613A@[local_ip]:[local_port];transport=[transport]>;tag=[pid]SIPpTag09[call_number]
-
---unique-boundary-1
 Content-Type: application/sdp
+Content-Length: [len]
+From: "NeTS mctx1_[call_id]" <sip:mctx1_[call_id];transport=[transport]>;tag=[pid]SIPpTag09[call_number]
 
 v=0
 o=- 126156061 1 IN IP4 [media_ip]
 s=-
-c=IN IP4 10.58.232.40
+c=IN IP4 [media_ip]
 t=0 0
 m=audio [media_port] RTP/AVP 8 0 18 101 111
 c=IN IP[media_ip_type] [media_ip]
@@ -58,23 +52,7 @@ a=rtpmap:111 X-nt-inforeq/8000
 a=ptime:20
 a=sendrecv
 
---unique-boundary-1
-Content-Type: application/x-nt-mcdn-frag-hex;version=ssLinux-7.65.16;base=x2611
-Content-Disposition: signal;handling=optional
-
-05000c07
-0107130085900000a200
-09090f00e9a5830001009100
-131f070011fd1900a1170201010201a1300f80053003800101810300070d85010000
-1315070011fa0f00a10d02010102020100cc040000278d00
-1e0403008181
---unique-boundary-1
-Content-Type: application/x-nt-epid-frag-hex;version=ssLinux-7.65.16;base=x2611
-Content-Disposition: signal;handling=optional
-
-011201
-
-    ]]>
+]]>
   </send>
 
   <recv response="100" optional="true">
@@ -94,19 +72,19 @@ Content-Disposition: signal;handling=optional
   <send>
     <![CDATA[
 
-ACK sip:conf-[call_id]@[remote_ip]:[remote_port];transport=[transport] SIP/2.0
+ACK sip:conf-[call_number]@[remote_ip]:[remote_port];transport=[transport] SIP/2.0
 Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
 Max-Forwards: 70
 Allow: INVITE, OPTIONS, INFO, BYE, CANCEL, ACK, UPDATE, NOTIFY
 User-Agent: Mitel NeTS 5.12.4034.0/5.12.4035.0
 X-NeTS-actorid: {A6C9613A-E34C-4699-8A09-DE075EB8F730}
-X-NeTS-callcontext: mctx1_A6C9613A
+X-NeTS-callcontext: mctx1_[call_id]
 Expires: 1
 Contact: sip:sipp@[local_ip]:[local_port]
 Content-Length: 0
-To: <sip:conf-[call_id]@[remote_ip]:[remote_port];transport=[transport]>;[peer_tag_param]
-From: "NeTS mctx1_A6C9613A" <sip:mctx1_A6C9613A@[local_ip]:[local_port];transport=[transport]>;tag=[pid]SIPpTag09[call_number]
-Call-ID: [call_id]
+To: <sip:conf-[call_number]@[remote_ip]:[remote_port];transport=[transport]>;[peer_tag_param]
+From: "NeTS mctx1_[call_id]" <sip:mctx1_[call_id];transport=[transport]>;tag=[pid]SIPpTag09[call_number]
+Call-ID: call-x-[call_number]@[local_ip]
 CSeq: 101 ACK
 
     ]]>
@@ -128,17 +106,17 @@ CSeq: 101 ACK
   <send>
     <![CDATA[
 
-INFO sip:conf-[call_id]@[remote_ip]:[remote_port];transport=[transport] SIP/2.0
+INFO sip:conf-[call_number]@[remote_ip]:[remote_port];transport=[transport] SIP/2.0
 Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
 [last_Call-ID:]
-From: "NeTS mctx1_A6C9613A" <sip:mctx1_A6C9613A@[local_ip]:[local_port];transport=[transport]>;tag=[pid]SIPpTag09[call_number]
-To: <sip:conf-[call_id]@[remote_ip]:[remote_port];transport=[transport]>;[peer_tag_param]
+From: "NeTS mctx1_[call_id]" <sip:mctx1_[call_id];transport=[transport]>;tag=[pid]SIPpTag09[call_number]
+To: <sip:conf-[call_number]@[remote_ip]:[remote_port];transport=[transport]>;[peer_tag_param]
 Max-Forwards: 70
 User-Agent: Mitel NeTS 5.12.4034.0/5.12.4035.0
 Allow: INVITE, OPTIONS, INFO, BYE, CANCEL, ACK, UPDATE, NOTIFY
-Contact: "NeTS mctx1_A6C9613A" <sip:mctx1_A6C9613A@[local_ip]:[local_port];transport=[transport]>
+Contact: "NeTS mctx1_[call_id]" <sip:mctx1_[call_id];transport=[transport]>
 X-NeTS-actorid: {A6C9613A-E34C-4699-8A09-DE075EB8F730}
-X-NeTS-callcontext: mctx1_A6C9613A
+X-NeTS-callcontext: mctx1_[call_id]
 Content-Type: application/xml
 Content-Length: [len]
 CSeq: 102 INFO
@@ -181,17 +159,17 @@ CSeq: 102 INFO
   <send retrans="500">
     <![CDATA[
 
-INFO sip:conf-[call_id]@[remote_ip]:[remote_port];transport=[transport] SIP/2.0
+INFO sip:conf-[call_number]@[remote_ip]:[remote_port];transport=[transport] SIP/2.0
 Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=z9hG4bK296F1814C504453B8F63C2A1B44F00AA
 [last_Call-ID:]
-From: "NeTS mctx1_A6C9613A" <sip:mctx1_A6C9613A@[local_ip]:[local_port];transport=[transport]>;tag=[pid]SIPpTag09[call_number]
-To: <sip:conf-[call_id]@[remote_ip]:[remote_port];transport=[transport]>;[peer_tag_param]
+From: "NeTS mctx1_[call_id]" <sip:mctx1_[call_id];transport=[transport]>;tag=[pid]SIPpTag09[call_number]
+To: <sip:conf-[call_number]@[remote_ip]:[remote_port];transport=[transport]>;[peer_tag_param]
 Max-Forwards: 70
 User-Agent: Mitel NeTS 5.12.4034.0/5.12.4035.0
 Allow: INVITE, OPTIONS, INFO, BYE, CANCEL, ACK, UPDATE, NOTIFY
-Contact: "NeTS mctx1_A6C9613A" <sip:mctx1_A6C9613A@[local_ip]:[local_port];transport=[transport]>
+Contact: "NeTS mctx1_[call_id]" <sip:mctx1_[call_id];transport=[transport]>
 X-NeTS-actorid: {A6C9613A-E34C-4699-8A09-DE075EB8F730}
-X-NeTS-callcontext: mctx1_A6C9613A
+X-NeTS-callcontext: mctx1_[call_id]
 Content-Type: application/xml
 Content-Length: [len]
 CSeq: 103 INFO
@@ -237,8 +215,8 @@ CSeq: 103 INFO
       Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
       From: sipp <sip:sipp@[local_ip]:[local_port]>;tag=[pid]SIPpTag09[call_number]
       To: sut <sip:[service]@[remote_ip]:[remote_port]>[peer_tag_param]
-      Call-ID: [call_id]
-      CSeq: 2 BYE
+      Call-ID: call-x-[call_number]@[local_ip]
+      CSeq: 104 BYE
       Contact: sip:sipp@[local_ip]:[local_port]
       Max-Forwards: 70
       Subject: Performance Test
