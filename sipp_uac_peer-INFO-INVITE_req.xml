@@ -91,7 +91,7 @@
       c=IN IP[local_ip_type] [local_ip]
       t=0 0
       a=sendrecv
-      m=audio [auto_media_port] RTP/AVP 8 98
+      m=audio [media_port] RTP/AVP 8 98
       a=rtpmap:8 PCMA/8000
       a=rtpmap:98 telephone-event/8000
       a=fmtp:98 0-15

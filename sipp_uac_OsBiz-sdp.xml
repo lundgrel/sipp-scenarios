@@ -113,7 +113,7 @@ o=OsBiz 6957012245381670838 1 IN IP4 [local_ip]
 s=OsBiz
 c=IN IP4 [local_ip]
 t=0 0
-m=audio [auto_media_port] RTP/AVP 18 101
+m=audio [media_port] RTP/AVP 18 101
 a=rtpmap:18 G729/8000
 a=fmtp:18 annexb=yes
 a=rtpmap:101 telephone-event/8000
