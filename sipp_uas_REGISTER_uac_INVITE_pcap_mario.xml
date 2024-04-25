@@ -26,13 +26,11 @@
     <action>
      <!-- since we need to send a request to the remote part -->
      <!-- we need to extract the Contact and the From header content -->
-     <ereg regexp=".*" search_in="hdr" header="Contact"
-assign_to="full_remote_contact"/>
-     <!-- assign the content of the Contaact SIP URI to the
-remote_contact var -->
+     <ereg regexp=".*" search_in="hdr" header="Contact" assign_to="full_remote_contact"/>
+     <!-- assign the content of the Contaact SIP URI to the remote_contact var -->
      <!-- first var of assign_to contains the whole match -->
-     <!-- <ereg regexp="sip:(.*)>.*" search_in="hdr" header="Contact"
-assign_to="trash,remote_contact"/>  -->
+     <ereg regexp="sip:(.*transport=[A-Z]+)" search_in="hdr" header="Contact" assign_to="remote_contact"/>
+     <!-- <ereg regexp="sip:(.*)\>.*" search_in="hdr" header="Contact" assign_to="remote_contact"/>  -->
     </action>
   </recv>
 
@@ -57,51 +55,27 @@ assign_to="trash,remote_contact"/>  -->
       [last_Call-ID:]
       [last_CSeq:]
       Contact: [$full_remote_contact]
+      x-remote-contact: [$remote_contact]
       Content-Length: 0
 
     ]]>
   </send>
 
 
-  <recv request="INVITE" crlf="true">
-  </recv>
-
-  <!-- The '[last_*]' keyword is replaced automatically by the          -->
-  <!-- specified header if it was present in the last message received  -->
-  <!-- (except if it was a retransmission). If the header was not       -->
-  <!-- present or if no message has been received, the '[last_*]'       -->
-  <!-- keyword is discarded, and all bytes until the end of the line    -->
-  <!-- are also discarded.                                              -->
-  <!--                                                                  -->
-  <!-- If the specified header was present several times in the         -->
-  <!-- message, all occurences are concatenated (CRLF seperated)        -->
-  <!-- to be used in place of the '[last_*]' keyword.                   -->
-
-  <send>
-    <![CDATA[
-
-      SIP/2.0 180 Ringing
-      [last_Via:]
-      [last_From:]
-      [last_To:];tag=[pid]SIPpTag01-inv[call_number]
-      [last_Call-ID:]
-      [last_CSeq:]
-      Contact: <sip:[local_ip]:[local_port];transport=[transport]>
-      Content-Length: 0
-
-    ]]>
-  </send>
+    <pause milliseconds="1500"/>
 
   <send retrans="500">
     <![CDATA[
 
-      SIP/2.0 200 well ok then
-      [last_Via:]
-      [last_From:]
-      [last_To:];tag=[pid]SIPpTag01-inv[call_number]
-      [last_Call-ID:]
-      [last_CSeq:]
-      Contact: <sip:[local_ip]:[local_port];transport=[transport]>
+      INVITE [$remote_contact] SIP/2.0
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+      From: sipp <sip:sipp@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
+      To: sut <sip:[service]@remote.host>
+      Call-ID: [call_id]-INV
+      CSeq: 1 INVITE
+      Contact: <sip:sipp@[local_ip]:[local_port];transport=[transport]>
+      Max-Forwards: 70
+      Subject: Performance Test
       Content-Type: application/sdp
       Content-Length: [len]
 
@@ -114,18 +88,38 @@ assign_to="trash,remote_contact"/>  -->
       a=rtpmap:101 telephone-event/8000
       a=fmtp:101 0-11,16
 
-
     ]]>
   </send>
 
-  <recv request="ACK"
-        optional="false"
-        rtd="true"
-        crlf="true">
+  <recv response="100"
+        optional="true">
+  </recv>
+
+  <recv response="180" optional="true">
+  </recv>
+
+  <recv response="200">
   </recv>
 
 
-  <pause milliseconds="100"/>
+  <send>
+    <![CDATA[
+
+      ACK [$remote_contact] SIP/2.0
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+      From: sipp <sip:sipp@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
+      To: sut <sip:[service]@remote.host>[peer_tag_param]
+      Call-ID: [call_id]-INV
+      CSeq: 1 ACK
+      Contact: <sip:sipp@[local_ip]:[local_port];transport=[transport]>
+      Max-Forwards: 70
+      Subject: Performance Test
+      Content-Length: 0
+
+    ]]>
+  </send>
+  
+    <pause milliseconds="100"/>
 
   <!-- Play a pre-recorded PCAP file (RTP stream)                       -->
   <nop>
@@ -137,9 +131,28 @@ assign_to="trash,remote_contact"/>  -->
 
   <!-- Keep the call open for a while in case the 200 is lost to be     -->
   <!-- able to retransmit it if we receive the BYE again.               -->
-  <pause milliseconds="9000"/>
+  <pause milliseconds="21000"/>
 
+  <send>
+    <![CDATA[
 
+      BYE [$remote_contact] SIP/2.0
+      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+      From: sipp <sip:sipp@[local_ip]:[local_port]>;tag=[pid]SIPpTag00[call_number]
+      To: sut <sip:[service]@remote.host>[peer_tag_param]
+      Call-ID: [call_id]-INV
+      CSeq: 1 ACK
+      Contact: <sip:sipp@[local_ip]:[local_port];transport=[transport]>
+      Max-Forwards: 70
+      Subject: Performance Test
+      Content-Length: 0
+
+    ]]>
+  </send>
+  
+  <recv response="200" />
+
+			
 
 </scenario>
 
