@@ -26,13 +26,10 @@
     <action>
      <!-- since we need to send a request to the remote part -->
      <!-- we need to extract the Contact and the From header content -->
-     <ereg regexp=".*" search_in="hdr" header="Contact"
-assign_to="full_remote_contact"/>
-     <!-- assign the content of the Contaact SIP URI to the
-remote_contact var -->
+     <ereg regexp=".*" search_in="hdr" header="Contact" assign_to="full_remote_contact"/>
+     <!-- assign the content of the Contaact SIP URI to the remote_contact var -->
      <!-- first var of assign_to contains the whole match -->
-     <!-- <ereg regexp="sip:(.*)>.*" search_in="hdr" header="Contact"
-assign_to="trash,remote_contact"/>  -->
+     <!-- <ereg regexp="sip:(.*)>.*" search_in="hdr" header="Contact" assign_to="trash,remote_contact"/>  -->
     </action>
   </recv>
 

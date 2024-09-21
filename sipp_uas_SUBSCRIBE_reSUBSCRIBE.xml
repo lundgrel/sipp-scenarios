@@ -83,7 +83,7 @@
       Content-Type: application/pidf+xml
       Content-Length: [len]
 
-<presence xmlns="urn:ietf:params:xml:ns:pidf" entity="sip:1004@10.211.63.72" xmlns:e="urn:ietf:params:xml:ns:pidf:status:rpid" xmlns:dm="urn:ietf:params:xml:ns:pidf:data-model" xmlns:ce="urn:cisco:params:xml:ns:pidf:rpid" xmlns:sc="urn:ietf:params:xml:ns:pidf:servcaps">
+<presence xmlns="urn:ietf:params:xml:ns:pidf" entity="$[local]" xmlns:e="urn:ietf:params:xml:ns:pidf:status:rpid" xmlns:dm="urn:ietf:params:xml:ns:pidf:data-model" xmlns:ce="urn:cisco:params:xml:ns:pidf:rpid" xmlns:sc="urn:ietf:params:xml:ns:pidf:servcaps">
     <dm:person>
         <status>
             <basic>open</basic>
@@ -97,7 +97,7 @@
         <sc:servcaps>
             <sc:audio>true</sc:audio>
         </sc:servcaps>
-        <contact priority="0.8">sip:1004@10.211.63.72:5070</contact>
+        <contact priority="0.8">$[local]</contact>
         <timestamp>2023-07-21T07:42:45Z</timestamp>
     </tuple>
 </presence>
