@@ -1,6 +1,7 @@
 #!/bin/bash
 
-PYRITE_IP=$(echo $SSH_CLIENT | cut -d ' ' -f 1)
+PYRITE_IP=$(who am i --ips|awk '{print $5}')
+# echo $SSH_CLIENT | cut -d ' ' -f 1)
 basename=${1%.*}
 logfile=${basename}-log.txt
 errfile=${basename}-err.txt

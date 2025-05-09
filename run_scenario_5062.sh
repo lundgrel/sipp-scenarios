@@ -3,6 +3,10 @@
 basename=${1%.*}
 rm -vf ${basename}_[0-9]*_messages.log ${basename}_[0-9]*_errors.log
 DN="${2:-2012}"
+
+ss state time-wait dport = 5062 -K
+
+
 echo run sipp
 # -mp 8000   media-port
 # -p 5060  local port
