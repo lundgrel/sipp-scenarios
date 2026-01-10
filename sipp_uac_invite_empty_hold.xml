@@ -116,12 +116,6 @@ a=ptime:20
         optional="true">
   </recv>
 
-  <recv response="180" optional="true">
-  </recv>
-
-  <recv response="183" optional="true">
-  </recv>
-
   <recv response="200" rtd="true">
   </recv>
 
