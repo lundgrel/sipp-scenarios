@@ -43,14 +43,19 @@
       c=IN IP[local_ip_type] [local_ip]
       t=0 0
       a=sendrecv
-      m=audio [media_port] RTP/AVP 8 98
-      a=rtpmap:8 PCMA/8000
-      a=rtpmap:98 telephone-event/8000
-      a=fmtp:98 0-15
+      m=audio [media_port] RTP/AVP 9
+      a=rtpmap:9 G722/8000
       a=sendrecv
       a=ptime:20
-
-
+      m=text [media_port] RTP/AVP 120 119
+      c=IN IP[local_ip_type] [local_ip]
+      b=AS:3
+      b=RS:0
+      b=RR:0
+      a=rtpmap:120 red/1000
+      a=fmtp:120 119/119/119
+      a=rtpmap:119 t140/1000
+      a=sendrecv
 
     ]]>
   </send>
@@ -86,10 +91,37 @@
     ]]>
   </send>
 
+  <pause milliseconds="4000"/>
+
+
+<send retrans="500">
+  <![CDATA[
+INFO sip:[service]@[remote_ip]:[remote_port] SIP/2.0
+Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+From: sipp <sip:sipp@[local_ip]:[local_port]>;tag=[pid]SIPpTag09[call_number]
+To: sut <sip:[service]@[remote_ip]:[remote_port]>[peer_tag_param]
+Call-ID: [call_id]
+CSeq: [cseq] INFO
+Contact: sip:sipp@[local_ip]:[local_port]
+Max-Forwards: 70
+Subject: here is a RTT to send
+Content-Length: [len]
+Content-Type: application/xml
+
+      <mediaCommand id="1"><text>send this text</text></mediaCommand>
+
+  ]]>
+</send>
+
+<recv response="200" optional="false" />
+
+<pause milliseconds="200"/>
+
+
   <!-- Play a pre-recorded PCAP file (RTP stream)                       -->
   <nop>
     <action>
-      <exec play_pcap_audio="sipp_uac_Media_DTMF_Speex.pcap"/>
+      <exec play_pcap_audio="sipp_uac_g722_rt140.pcap"/>
     </action>
   </nop>
 

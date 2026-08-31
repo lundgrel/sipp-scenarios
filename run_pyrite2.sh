@@ -1,9 +1,21 @@
 #!/bin/bash
 
-echo I am running as `id`
 basename=${1%.*}
-rm -v ${basename}_[0-9]*_messages.log ${basename}_[0-9]*_errors.log
-../sipp.git/sipp 172.19.98.101:5065 -sf "$1" -s 888 -t t1 -l 1 -aa -trace_msg -trace_err  -rate_increase 37 -rate_max 1 -m 1 -message_file ${basename}_messages.log -error_file ${basename}_errors.log
+rm -vf ${basename}_[0-9]*_messages.log ${basename}_[0-9]*_errors.log
+DN="${2:-90010}"
+OOC_SCENARIO="sipp_ooc_answer_clear_15s.xml"
+
+ss state time-wait dport = 5062
+ss state time-wait dport = 5062 -K
+
+
+echo run sipp
+# -mp 8000   media-port
+# -p 5060  local port
+set -x
+../sipp.git/sipp.root 172.19.98.101:5065 -sf "$1"  -oocsf "$OOC_SCENARIO"  -s "$DN" -l 1 -m 1 -aa -trace_msg -trace_err -t t1
+set +x
 echo completed
-cat ${basename}_errors.log
+cat ${basename}_[0-9]*_errors.log
 echo .
+

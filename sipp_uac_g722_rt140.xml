@@ -47,8 +47,8 @@
       a=rtpmap:9 G722/8000
       a=sendrecv
       a=ptime:20
-      m=text 16518 RTP/AVP 120 119
-      c=IN IP4 193.12.31.12
+      m=text [media_port] RTP/AVP 120 119
+      c=IN IP[local_ip_type] [local_ip]
       b=AS:3
       b=RS:0
       b=RR:0
@@ -64,6 +64,10 @@
   </recv>
 
   <recv response="180" optional="true">
+  </recv>
+
+
+<recv response="183" optional="true">
   </recv>
 
   <!-- By adding rrs="true" (Record Route Sets), the route sets         -->
@@ -90,6 +94,8 @@
 
     ]]>
   </send>
+
+  <pause milliseconds="3000"/>
 
   <!-- Play a pre-recorded PCAP file (RTP stream)                       -->
   <nop>

@@ -11,7 +11,8 @@ logfile=${basename}-log.txt
 errfile=${basename}-err.txt
 DN="${2:-2012}"
 
-../sipp.git/sipp.root 10.105.79.12:5065 -sf "$1" -s "$DN" -l 1 -m 1 -aa -trace_msg -message_file $logfile -trace_err -error_file $errfile  -t t1
+../sipp.git/sipp.root 10.105.79.12:5065 -sf "$1" -s "$DN" -l 1 -m 1 -aa -t u1 -trace_msg -message_file $logfile -trace_err -error_file $errfile  -t t1
 echo completed
-cat $errfile
-echo .
+if [ -e $errfile ]; then
+  cat $errfile
+fi
